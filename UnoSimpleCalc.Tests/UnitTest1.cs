@@ -13,7 +13,7 @@ namespace UnoSimpleCalc.Tests
             var cal = new Calculator();
             cal.AppendDigit(1);
             cal.Evaluate();
-            cal.TextInput.Should().Be("1");
+            cal.Result.Should().Be(1);
         }
 
         [Fact]
@@ -120,6 +120,20 @@ namespace UnoSimpleCalc.Tests
             cal.AppendDigit(5);
             cal.Evaluate();
             cal.Result.Should().Be(3.55);
+        }
+
+        [Fact]
+        public void MultipleSum()
+        {
+            var cal = new Calculator();
+            cal.AppendDigit(3);
+            cal.ApplyOperator(Operator.Add);
+            cal.AppendDigit(3);
+            cal.ApplyOperator(Operator.Add);
+            cal.AppendDigit(3);
+            cal.ApplyOperator(Operator.Add);
+
+            cal.Result.Should().Be(9);
         }
     }
 }

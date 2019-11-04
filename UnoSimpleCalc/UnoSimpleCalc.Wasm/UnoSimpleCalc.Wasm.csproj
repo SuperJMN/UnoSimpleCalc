@@ -39,5 +39,8 @@
     <PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0" />
     <DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.244" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\UnoSimpleCalc.Core\UnoSimpleCalc.Core.csproj" />
+  </ItemGroup>
   <Import Project="..\UnoSimpleCalc.Shared\UnoSimpleCalc.Shared.projitems" Label="Shared" Condition="Exists('..\UnoSimpleCalc.Shared\UnoSimpleCalc.Shared.projitems')" />
 </Project>

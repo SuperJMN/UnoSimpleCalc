@@ -2,8 +2,8 @@
 {
     public interface ICalculator
     {
-        string TextInput { get; }
         double Result { get; }
+        double DisplayResult { get; }
         void AppendDigit(int digit);
         void SetDecimal();
         void Evaluate();

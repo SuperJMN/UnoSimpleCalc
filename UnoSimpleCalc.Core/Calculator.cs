@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace UnoSimpleCalc.Core
 {
@@ -7,19 +6,12 @@ namespace UnoSimpleCalc.Core
     {
         private double decimalPosition;
         private Operator currentOperation = Operator.None;
-        private double result;
-        private double temp;
         private double working;
         private bool isNegate;
         private bool isDecimal;
-        public string TextInput
-        {
-            get
-            {
-                var display = working != 0 ? working : result != 0 ? result : temp;
-                return display.ToString(CultureInfo.InvariantCulture);
-            }
-        }
+        private double result;
+        public double Result => result;
+        public double DisplayResult => working != 0 ? working : result;
 
         public void AppendDigit(int digit)
         {
@@ -47,57 +39,65 @@ namespace UnoSimpleCalc.Core
 
         public void Evaluate()
         {
-            switch (currentOperation.Kind)
-            {
-                case OperatorKind.Add:
-                    result = temp + working;
-                    break;
-                case OperatorKind.Subtract:
-                    result = temp - working;
-                    break;
-                case OperatorKind.Multiplication:
-                    result = temp * working;
-                    break;
-                case OperatorKind.Division:
-                    result = temp / working;
-                    break;
-
-                case OperatorKind.None:
-                    result = working;
-                    break;
-            }
-
+            result = Evaluate(currentOperation, result, working);
             CancelEntry();
+            currentOperation = Operator.None;
         }
 
         public void CancelEntry()
         {
-            currentOperation = Operator.None;
-            isNegate = false;
-            isDecimal = false;
             working = 0;
+            ResetFlags();
         }
 
         public void Clear()
         {
-            CancelEntry();
+            working = 0;
             result = 0;
-            temp = 0;
+            
+            ResetFlags();
         }
-
-        public double Result => result;
 
         public void ApplyOperator(Operator op)
         {
             if (currentOperation.Kind != OperatorKind.None)
             {
-                Evaluate();
+                result = Evaluate(currentOperation, result, working);
+            }
+            else
+            {
+                result = working;
             }
 
-            currentOperation = op;
-            temp = working + result;
+            ResetFlags();
             working = 0;
+            currentOperation = op;
+        }
+
+        private void ResetFlags()
+        {
+            isDecimal = false;
+            isNegate = false;
             decimalPosition = 0;
+        }
+
+        private double Evaluate(Operator op, double a, double b)
+        {
+            switch (op.Kind)
+            {
+                case OperatorKind.Add:
+                    return a + b;
+                case OperatorKind.Subtract:
+                    return a - b;
+                case OperatorKind.Multiplication:
+                    return a * b;
+                case OperatorKind.Division:
+                    return a / b;
+                case OperatorKind.None:
+                    return b;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void Negate()

@@ -6,28 +6,33 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:unoSimpleCalc="clr-namespace:UnoSimpleCalc"
-    mc:Ignorable="d" d:DataContext="{d:DesignInstance unoSimpleCalc:CalcViewModel}">
+    xmlns:viewModels="using:UnoSimpleCalc.ViewModels"
+    mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:CalcViewModel}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <Viewbox>
-            <StackPanel>
-                <TextBlock Text="{Binding TextInput}" TextAlignment="Right" Margin="4" />
-                <ItemsControl ItemsSource="{Binding Digits}" Height="200">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                    Command="{Binding Execute}" Content="{Binding Text}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <controls:UniformGrid Columns="4" ColumnSpacing="2" RowSpacing="2" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </StackPanel></Viewbox>
+        <Viewbox Margin="10">
+            <Border Background="#26C3FF" Padding="20 0 20 20" CornerRadius="10">
+                <StackPanel>
+                    <TextBlock Text="UnoCalc" FontSize="10" Margin="0 10 0 0" />
+                    <Border Background="Aquamarine" CornerRadius="2" Margin="0 10">
+                        <TextBlock Text="{Binding Result}" TextAlignment="Right" Margin="4" />
+                    </Border>
+                    <ItemsControl ItemsSource="{Binding Digits}" Height="200">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="viewModels:ButtonViewModelBase">
+                                <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                        Command="{Binding Execute}" Content="{Binding Text}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <controls:UniformGrid Columns="4" ColumnSpacing="2" RowSpacing="2" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel></Border>
+        </Viewbox>
 
     </Grid>
 

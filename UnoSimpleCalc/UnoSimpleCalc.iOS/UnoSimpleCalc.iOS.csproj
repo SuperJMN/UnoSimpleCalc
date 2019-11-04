@@ -154,7 +154,12 @@
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\UnoSimpleCalc.Core\UnoSimpleCalc.Core.csproj">
+      <Project>{F1197F2D-83C2-4269-AF37-7AF75288ABC3}</Project>
+      <Name>UnoSimpleCalc.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\UnoSimpleCalc.Shared\UnoSimpleCalc.Shared.projitems" Label="Shared" Condition="Exists('..\UnoSimpleCalc.Shared\UnoSimpleCalc.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
