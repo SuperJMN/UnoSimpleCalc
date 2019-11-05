@@ -1,55 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using ReactiveUI;
+using System.Globalization;
+using UnoMvvm;
 using UnoSimpleCalc.Core;
 
 namespace UnoSimpleCalc.ViewModels
 {
-    public class CalcViewModel : ReactiveObject
+    public class CalcViewModel : BindableBase
     {
-        private double result;
+        private double _result;
 
         public CalcViewModel(ICalculator calculator)
         {
+            void PostAction() => Result = calculator.DisplayResult;
+
+            ButtonViewModelBase AddNumber(int n) =>
+                new ButtonViewModelBase(PostAction, n.ToString(), () => calculator.AppendDigit(n));
+
+            ButtonViewModelBase AddOperation(Operator op) => new ButtonViewModelBase(PostAction, op.Symbol.ToString(),
+                () => calculator.ApplyOperator(op));
+
+            ButtonViewModelBase Add(string text, Action action) => new ButtonViewModelBase(PostAction, text, action);
+            var numberFormat = CultureInfo.CurrentCulture.NumberFormat;
             Digits = new List<ButtonViewModelBase>
             {
-                new ClearViewModel(calculator),
-                new CancelEntryViewModel(calculator),
-                new NothingViewModel(calculator),
-                new OperationViewModel(Operator.Division, calculator),
+                Add("C", calculator.Clear),
+                Add("CE", calculator.CancelEntry),
+                Add("", () => { }),
+                AddOperation(Operator.Division),
 
-                new ButtonViewModel(7, calculator),
-                new ButtonViewModel(8, calculator),
-                new ButtonViewModel(9, calculator),
-                
-                new OperationViewModel(Operator.Multiplication, calculator),
+                AddNumber(7),
+                AddNumber(8),
+                AddNumber(9),
 
-                new ButtonViewModel(4, calculator),
-                new ButtonViewModel(5, calculator),
-                new ButtonViewModel(6, calculator),
-                new OperationViewModel(Operator.Subtract, calculator),
+                AddOperation(Operator.Multiplication),
 
-                new ButtonViewModel(1, calculator),
-                new ButtonViewModel(2, calculator),
-                new ButtonViewModel(3, calculator),
-                new OperationViewModel(Operator.Add, calculator),
+                AddNumber(4),
+                AddNumber(5),
+                AddNumber(6),
+                AddOperation(Operator.Subtract),
 
-                new ButtonViewModel(0, calculator),
-                new DecimalViewModel(calculator),
-                new NegateViewModel(calculator),
-                new EvaluateViewModel(calculator),
+                AddNumber(1),
+                AddNumber(2),
+                AddNumber(3),
+                AddOperation(Operator.Add),
+
+                AddNumber(0),
+                Add(numberFormat.NumberDecimalSeparator, calculator.SetDecimal),
+                Add(numberFormat.NegativeSign, calculator.Negate),
+                Add("=", calculator.Evaluate)
             };
-
-            var commandExecution = Digits.Select(x => x.Execute).Merge();
-            commandExecution.Subscribe(_ => Result = calculator.DisplayResult);
         }
 
         public double Result
         {
-            get => result;
-            set => this.RaiseAndSetIfChanged(ref result, value);
+            get => _result;
+            set => SetProperty(ref _result, value);
         }
 
         public List<ButtonViewModelBase> Digits { get; }
