@@ -1,5 +1,7 @@
 ﻿<linker>
-  <assembly fullname="UnoSimpleCalc.Wasm" />
+  <assembly fullname="UnoSimpleCalc.Wasm" >
+    <type fullname="*" />
+  </assembly>
   <assembly fullname="Uno.UI" />
   <assembly fullname="UnoSimpleCalc.Core">
     <type fullname="*" />

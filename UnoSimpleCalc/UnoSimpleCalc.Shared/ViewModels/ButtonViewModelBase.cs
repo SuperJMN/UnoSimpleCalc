@@ -1,19 +1,30 @@
-﻿using System.Reactive;
-using ReactiveUI;
-using UnoSimpleCalc.Core;
+﻿using System;
+using UnoMvvm;
 
 namespace UnoSimpleCalc.ViewModels
 {
-    public abstract class ButtonViewModelBase
+    public class ButtonViewModelBase : DelegateCommand
     {
-        public ICalculator Calculator { get; }
-
-        public ButtonViewModelBase(ICalculator calculator)
+        public string Text { get; private protected set; }
+        private readonly Action _postAction;
+        public ButtonViewModelBase(Action postAction, string text, Action executeMethod) : this(postAction, text, executeMethod, () => true)
         {
-            Calculator = calculator;
         }
 
-        public string Text { get; private protected set; }
-        public ReactiveCommand<Unit, Unit> Execute { get; private protected set; }
+        public ButtonViewModelBase(Action postAction, string text, Action executeMethod, Func<bool> canExecuteMethod) : base(executeMethod, canExecuteMethod)
+        {
+            _postAction = postAction;
+            Text = text;
+        }
+
+        protected override void Execute(object parameter)
+        {
+#if __WASM__
+            Console.WriteLine($"Pressed {Text}");
+#endif
+
+            base.Execute(parameter);
+            _postAction();
+        }
     }
 }

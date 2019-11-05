@@ -19,7 +19,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="viewModels:ButtonViewModelBase">
                             <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                    Command="{Binding Execute}" Content="{Binding Text}" />
+                                    Command="{Binding }" Content="{Binding Text}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.ItemsPanel>

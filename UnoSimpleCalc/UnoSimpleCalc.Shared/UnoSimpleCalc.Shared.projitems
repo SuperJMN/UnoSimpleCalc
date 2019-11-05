@@ -18,19 +18,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ButtonViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ButtonViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CalcViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CancelEntryViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DecimalViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EvaluateViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NegateViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NothingViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\OperationViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ClearViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
