@@ -32,7 +32,7 @@
   <ItemGroup>
     <!-- Note that for WebAssembly version 1.1.1 of the console logger required -->
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls" Version="5.1.0-build.200.gf9c311b069" />
-    <PackageReference Include="Uno.UI" Version="2.0.231-dev.2738" />
+    <PackageReference Include="Uno.UI" Version="2.0.324-dev.3171" />
     <PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0" />
     <PackageReference Include="UnoMvvm" Version="1.0.34" />
     <DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.244" />

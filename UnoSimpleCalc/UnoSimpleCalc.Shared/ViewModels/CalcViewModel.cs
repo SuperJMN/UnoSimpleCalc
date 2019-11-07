@@ -21,12 +21,14 @@ namespace UnoSimpleCalc.ViewModels
                 () => calculator.ApplyOperator(op));
 
             ButtonViewModelBase Add(string text, Action action) => new ButtonViewModelBase(PostAction, text, action);
+            ButtonViewModelBase AddEmpty() => new ButtonViewModelBase(() => { }, "", () => { }, () => false);
             var numberFormat = CultureInfo.CurrentCulture.NumberFormat;
+
             Digits = new List<ButtonViewModelBase>
             {
                 Add("C", calculator.Clear),
                 Add("CE", calculator.CancelEntry),
-                Add("", () => { }),
+                AddEmpty(),
                 AddOperation(Operator.Division),
 
                 AddNumber(7),
