@@ -10,6 +10,9 @@
 
     <Viewbox Margin="10">
         <Border Background="#26C3FF" Padding="20 0 20 20" CornerRadius="10">
+            <Border.RenderTransform>
+                <CompositeTransform Rotation="-10"/>
+            </Border.RenderTransform>
             <StackPanel>
                 <TextBlock Text="UnoCalc" FontSize="10" Margin="0 10 0 0" />
                 <Border Background="Aquamarine" CornerRadius="2" Margin="0 10">
@@ -19,7 +22,11 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="viewModels:ButtonViewModelBase">
                             <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                    Command="{Binding }" Content="{Binding Text}" />
+                                    Command="{Binding }" Content="{Binding Text}" >
+                                <Button.RenderTransform>
+                                    <CompositeTransform Rotation="-10"/>
+                                </Button.RenderTransform>
+                            </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     <ItemsControl.ItemsPanel>
